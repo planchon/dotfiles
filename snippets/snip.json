@@ -1,0 +1,493 @@
+{
+    "Action": {
+      "prefix": "init_action",
+      "body": [
+        "import { IActionDef, IFormDef } from '@stratumn/trace-generator';",
+        "",
+        "import {",
+        "  Statement,",
+        "  StatementType,",
+        "  ResolvedExpressionType as ExpressionType",
+        "} from '@stratumn/dsl';",
+        "import { HexagoneWorkflows } from '@utils/types';",
+        "",
+        "// ============================================================================",
+        "// ====                             FORM                                   ====",
+        "// ============================================================================",
+        "",
+        "const form: IFormDef = {",
+        "  schema: {",
+        "    type: 'object',",
+        "    properties: {",
+        "    },",
+        "    required: []",
+        "  },",
+        "  uiSchema: {",
+        "  'ui:order': [],",
+        "  KEY: {'ui:field': 'FileUploadField'},",
+        "  //  KEY: {'ui:widget': 'checkboxes'},",
+        "  //  KEY: {'ui:widget': 'radio'}",
+        "}",
+        "};",
+        "",
+        "// ============================================================================",
+        "// ====                             EFFECTS                                ====",
+        "// ============================================================================",
+        "",
+        "const generateEffects = (context: HexagoneWorkflows): Statement[] => [",
+        "];",
+        "",
+        "// ============================================================================",
+        "// ====                             ACTION                                 ====",
+        "// ============================================================================",
+        "",
+        "export const $1 = (context: HexagoneWorkflows): IActionDef => ({",
+        "  key: '',",
+        "  title: '',",
+        "  stageName: '',",
+        "  icon: 'SFTickCircle',",
+        "  form,",
+        "  effects: context ? generateEffects(context) : []",
+        "});",
+        ""
+      ],
+      "description": "Action"
+    },
+    "Date form": {
+      "prefix": "date_form",
+      "body": [
+        "$1: {",
+        "        type: 'string',",
+        "        format: 'alt-date',",
+        "        title: ''",
+        "      },"
+      ],
+      "description": "Date form"
+    },
+    "List Form": {
+      "prefix": "list_form",
+      "body": [
+        "$1: {",
+        "        title: '',",
+        "        type: 'string',",
+        "        enum: []",
+        "      },"
+      ],
+      "description": "List Form"
+    },
+    "Boolean Form": {
+      "prefix": "boolean_form",
+      "body": [
+        "$1: {",
+        "        title: '',",
+        "        type: 'boolean',",
+        "        enumNames: []",
+        "      },"
+      ],
+      "description": "Boolean Form"
+    },
+    "String Form": {
+      "prefix": "string_form",
+      "body": [
+        "$1: {",
+        "        title: '',",
+        "        type: 'string'",
+        "      },"
+      ],
+      "description": "String Form"
+    },
+    "Table Form": {
+      "prefix": "table_form",
+      "body": [
+        "$1: {",
+        "        type: 'array',",
+        "        items: {",
+        "          type: 'object',",
+        "          properties: {",
+        "          },",
+        "          additionalProperties: true,",
+        "          required: []",
+        "        }",
+        "      },"
+      ],
+      "description": "Table Form"
+    },
+    "String Type Form": {
+      "prefix": "type_string_table",
+      "body": ["{ type: 'string' }"],
+      "description": "String Type Form"
+    },
+    "Number Type Form": {
+      "prefix": "type_number_table",
+      "body": ["{ type: 'number' }"],
+      "description": "Number Type Form"
+    },
+    "Comment": {
+      "prefix": "comment_form",
+      "body": [
+        "comment: {",
+        "      type: 'string',",
+        "      title: 'Comment',",
+        "      format: 'draft'",
+        "    },"
+      ],
+      "description": "Comment"
+    },
+    "File": {
+      "prefix": "file_form",
+      "body": [
+        "$1: {",
+        "        title: 'Documents',",
+        "        type: 'array',",
+        "        items: {",
+        "          type: 'object',",
+        "          required: ['digest', 'name', 'size', 'createdAt'],",
+        "          properties: {",
+        "            digest: {",
+        "              type: 'string'",
+        "            },",
+        "            name: {",
+        "              type: 'string'",
+        "            },",
+        "            size: {",
+        "              type: 'integer'",
+        "            },",
+        "            key: {",
+        "              type: 'string'",
+        "            },",
+        "            createdAt: {",
+        "              type: 'string',",
+        "              format: 'date-time'",
+        "            }",
+        "          }",
+        "        }",
+        "      },"
+      ],
+      "description": "File"
+    },
+    "Get statement": {
+      "prefix": "get_variable",
+      "body": [
+        "{",
+        "  \\$expression: ExpressionType.Variable,",
+        "  query: $1",
+        "},"
+      ],
+      "description": "Get statement"
+    },
+    "Set variable": {
+      "prefix": "set_variable",
+      "body": [
+        "{",
+        "    \\$statement: StatementType.SetVariable,",
+        "    path: 'state.data.$1',",
+        "    value: {}",
+        "},"
+      ],
+      "description": "Set variable"
+    },
+    "Set next actions": {
+      "prefix": "set_na",
+      "body": [
+        "{",
+        "    \\$statement: StatementType.SetVariable,",
+        "    path: 'state.nextActions',",
+        "    value: {$1}",
+        "},"
+      ],
+      "description": "Set variable"
+    },
+    "Set status": {
+      "prefix": "set_status",
+      "body": [
+        "{",
+        "    \\$statement: StatementType.SetVariable,",
+        "    path: 'state.data.status',",
+        "    value: $1",
+        "},"
+      ],
+      "description": "Set status"
+    },
+    "Get formdata": {
+      "prefix": "get_formdata",
+      "body": [
+        "{",
+        "  \\$expression: ExpressionType.Variable,",
+        "  query: 'formData.$1'",
+        "},"
+      ],
+      "description": "Get formdata"
+    },
+    "Join": {
+      "prefix": "join_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Join,",
+        "    separator: '',",
+        "    arguments: [",
+        "        // Array of strings expressions to join",
+        "    ],",
+        "},"
+      ],
+      "description": "Join"
+    },
+    "Split": {
+      "prefix": "split_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Split,",
+        "    separator: '',",
+        "    argument: {",
+        "        // StringExpression to split",
+        "    },",
+        "    // [optionnal]",
+        "    trim: // boolean",
+        "},"
+      ],
+      "description": "Split"
+    },
+    "Sort": {
+      "prefix": "sort_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Sort,",
+        "    arguments: [",
+        "        // arrayExpression to sort",
+        "    ],",
+        "    // [optionnal]",
+        "    direction: SortDirection.Ascending || SortDirection.Descending",
+        "},"
+      ],
+      "description": "Sort"
+    },
+    "Concat": {
+      "prefix": "concat_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Concat,",
+        "    arguments: [",
+        "        // arrayExpression to concat",
+        "    ],",
+        "    // [optionnal]",
+        "    removeDuplicates: // boolean",
+        "},"
+      ],
+      "description": "Concat"
+    },
+    "Find": {
+      "prefix": "find_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Find,",
+        "    array: [",
+        "        // arrayExpression to find in",
+        "    ],",
+        "    // [optionnal]",
+        "    condition: {",
+        "        // function or { query, match }",
+        "    }",
+        "},"
+      ],
+      "description": "Find"
+    },
+    "Equal": {
+      "prefix": "equal_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Equal,",
+        "    arguments: [",
+        "        // arrayExpression to test",
+        "    ]",
+        "    // [optionnal]",
+        "    throwOnTypeMismatch: // boolean, throw an exception if objects compared don't have the same type",
+        "    // [optionnal]",
+        "    precision: // number, used for decimal numbers",
+        "},"
+      ],
+      "description": "Equal"
+    },
+    "Or": {
+      "prefix": "or_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Or,",
+        "    arguments: [",
+        "        // arrayExpression to test",
+        "    ]",
+        "},"
+      ],
+      "description": "Or"
+    },
+    "And": {
+      "prefix": "and_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.And,",
+        "    arguments: [",
+        "        // arrayExpression to test",
+        "    ]",
+        "},"
+      ],
+      "description": "And"
+    },
+    "Not": {
+      "prefix": "not_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Not,",
+        "    argument: {",
+        "        // expression to negate",
+        "    }",
+        "},"
+      ],
+      "description": "Not"
+    },
+    "Sorted": {
+      "prefix": "sorted_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Sorted,",
+        "    arguments: [",
+        "        // arrayExpression to test",
+        "    ],",
+        "    // [optionnal]",
+        "    direction: SortDirection.Ascending || SortDirection.Descending,",
+        "    // [optionnal]",
+        "    strict: //, boolean",
+        "    // [optionnal]",
+        "    throwOnTypeMismatch: // boolean, throw an exception if objects compared don't have the same type",
+        "},"
+      ],
+      "description": "Sorted"
+    },
+    "Sum": {
+      "prefix": "sum_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Sum,",
+        "    arguments: [",
+        "    ]",
+        "},"
+      ],
+      "description": "Sum"
+    },
+    "Product": {
+      "prefix": "product_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Product,",
+        "    arguments: [",
+        "        // arrayExpression to multiply",
+        "    ]",
+        "},"
+      ],
+      "description": "Product"
+    },
+    "Inverse": {
+      "prefix": "inverse_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Inverse,",
+        "    argument: {",
+        "        // numberExpression to inverse",
+        "    }",
+        "},"
+      ],
+      "description": "Inverse"
+    },
+    "Merge": {
+      "prefix": "merge_statement",
+      "body": [
+        "{",
+        "    \\$expression: ExpressionType.Merge,",
+        "    arguments: [",
+        "        // arrayExpression to merge",
+        "    ]",
+        "},"
+      ],
+      "description": "Merge"
+    },
+    "Switch": {
+      "prefix": "switch_statement",
+      "body": [
+        "{",
+        "    \\$statement: StatementType.Switch,",
+        "    cases: [",
+        "    {",
+        "        if: {",
+        "        // Condition",
+        "        },",
+        "        then: [",
+        "        // Statements",
+        "        ]",
+        "    }",
+        "    ],",
+        "    // [optionnal]",
+        "    else : [",
+        "    // Statements",
+        "    ]",
+        "},"
+      ],
+      "description": "Switch"
+    },
+    "For each": {
+      "prefix": "foreach_statement",
+      "body": [
+        "{",
+        "    \\$statement: StatementType.ForEach,",
+        "    array: {",
+        "        // array to loop on",
+        "    }",
+        "    function: {",
+        "       // function expression to execute on each element",
+        "    }",
+        "},"
+      ],
+      "description": "For each"
+    },
+    "Break": {
+      "prefix": "break_statement",
+      "body": ["{", "    \\$statement: StatementType.Break", "}"],
+      "description": "Break"
+    },
+    "Throw": {
+      "prefix": "throw_statement",
+      "body": [
+        "{",
+        "    \\$statement: StatementType.Throw,",
+        "    message: {",
+        "        // string expression",
+        "    }",
+        "},"
+      ],
+      "description": "Throw"
+    },
+    "Try catch": {
+      "prefix": "try_catch_statement",
+      "body": [
+        "{",
+        "    \\$statement: StatementType.Try,",
+        "    body: [",
+        "        // items",
+        "    ],",
+        "    // [optionnal]",
+        "    fallback: [",
+        "",
+        "    ]",
+        "},"
+      ],
+      "description": "Try catch"
+    },
+    "Function call": {
+      "prefix": "function_call",
+      "body": [
+        "{",
+        "    \\$statement: StatementType.FunctionCall,",
+        "    function: { \\$ref: '' },",
+        "    arguments: [",
+        "    ]",
+        "},"
+      ],
+      "description": "Function call"
+    }
+  }

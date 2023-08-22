@@ -10,14 +10,15 @@ return require('packer').startup(function(use)
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 
+    use 'l3mon4d3/luasnip'
     use 'folke/tokyonight.nvim'
 
-	use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
+	use({'nvim-treesitter/nvim-treesitter'})
+    use('windwp/nvim-ts-autotag')
 	use('nvim-treesitter/playground')
 	use('theprimeagen/harpoon')
 	use('mbbill/undotree')
 	use('tpope/vim-fugitive')
-    use('prettier/vim-prettier')
 
 	use {
 		'VonHeikemen/lsp-zero.nvim',
@@ -36,7 +37,7 @@ return require('packer').startup(function(use)
 			{'hrsh7th/cmp-nvim-lua'},
 
 			-- Snippets
-			{'L3MON4D3/LuaSnip'},
+			{'l3mon4d3/luasnip'},
 			{'rafamadriz/friendly-snippets'},
 		}
 	}
@@ -51,4 +52,15 @@ return require('packer').startup(function(use)
 
     use "numToStr/FTerm.nvim"
     use 'pantharshit00/vim-prisma'
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+          require("todo-comments").setup {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+          }
+    	end
+    }
 end)

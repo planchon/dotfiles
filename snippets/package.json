@@ -1,0 +1,11 @@
+{
+    "name": "Stratumn Snippets",
+    "contributes": {
+        "snippets": [
+            {
+                "language": ["typescript"],
+                "path": "./snip.json"
+            }
+        ]
+    }
+}
