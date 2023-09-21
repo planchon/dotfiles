@@ -20,6 +20,8 @@ return require('packer').startup(function(use)
 	use('mbbill/undotree')
 	use('tpope/vim-fugitive')
     use('nvim-lualine/lualine.nvim')
+    use { "bluz71/vim-moonfly-colors", as = "moonfly" }
+    use "jose-elias-alvarez/null-ls.nvim"
 
 	use {
 		'VonHeikemen/lsp-zero.nvim',

@@ -6,13 +6,25 @@ end
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-    'tsserver',
-})
-
-require('lspconfig').tsserver.setup({
-  on_attach = function(client, bufnr)
-    lsp.async_autoformat(client, bufnr)
-  end,
+    "bashls",
+    "clangd",
+    "cmake",
+    "cssls",
+    "dockerls",
+    "docker_compose_language_service",
+    "eslint",
+    "emmet_ls",
+    "golangci_lint_ls",
+    "html",
+    "jsonls",
+    "jdtls",
+    "tsserver",
+    "lua_ls",
+    "marksman",
+    "rust_analyzer",
+    "tailwindcss",
+    "terraformls",
+    "yamlls"
 })
 
 local cmp = require('cmp')
@@ -24,12 +36,9 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-Space>"] = cmp.mapping.complete(),
 })
 
+lsp.nvim_workspace()
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings
-})
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -50,5 +59,10 @@ end)
 lsp.setup()
 
 vim.diagnostic.config({
-    virtual_text = true,
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = false,
+  float = true,
 })
