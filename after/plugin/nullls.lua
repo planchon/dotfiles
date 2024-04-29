@@ -5,6 +5,7 @@ local diagnostics = null_ls.builtins.diagnostics
 
 local sources = {
         diagnostics.golangci_lint.with({filetypes = {"go"}}),
+        
         diagnostics.flake8.with({
            dynamic_command = function()
                return "flake8"
@@ -12,11 +13,11 @@ local sources = {
            extra_args = { "--max-line-length=79", "--ignore=E203,W503" },
            filetypes = { "python" }
         }),
+
         diagnostics.eslint.with({filetypes = {"typescript", "typescriptreact"}}),
         diagnostics.jsonlint.with({filetypes = {"json"}}),
         diagnostics.markdownlint.with({filetypes = {"yaml"}}),
         diagnostics.tsc,
-        diagnostics.php.with({filetypes = {"php"}}),
 
         formatting.black.with({
             dynamic_command = function()
@@ -25,13 +26,16 @@ local sources = {
             extra_args = { "--line-length", "79" },
             filetypes = { "python" }
         }),
+
         formatting.isort.with({
             dynamic_command = function()
                 return "isort"
             end,
             args = {
-              "$FILENAME",
               "--stdout",
+              "--filename",
+              "$FILENAME",
+              "-",
               "--profile",
               "black",
               "--line-length",
@@ -39,14 +43,16 @@ local sources = {
             },
             filetypes = { "python" }
         }),
+
         formatting.gofmt.with({filetypes = {"go"}}),
         formatting.jq.with({filetypes = {"json"}}),
         formatting.markdownlint.with({filetypes = {"markdown"}}),
+
         formatting.prettier.with({
             command = "prettier",
-            extra_args = { "--print-with", "100" },
-            filetypes = { "typescript", "typescriptreact" },
+            filetypes = { "typescript", "typescriptreact", "javascript" },
         }),
+
         formatting.rustfmt.with({
             extra_args = function(params)
                 local Path = require("plenary.path")
@@ -66,7 +72,6 @@ local sources = {
         }),
         formatting.terraform_fmt.with({filetypes = {"terraform", "hcl"}}),
         formatting.yamlfmt.with({filetypes = {"yaml"}}),
-
     }
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})

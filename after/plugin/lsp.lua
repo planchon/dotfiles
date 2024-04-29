@@ -7,17 +7,13 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
     "bashls",
-    "clangd",
-    "cmake",
     "cssls",
     "dockerls",
     "docker_compose_language_service",
-    "eslint",
     "emmet_ls",
     "golangci_lint_ls",
     "html",
     "jsonls",
-    "jdtls",
     "tsserver",
     "lua_ls",
     "marksman",
@@ -36,7 +32,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-Space>"] = cmp.mapping.complete(),
 })
 
-lsp.nvim_workspace()
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
